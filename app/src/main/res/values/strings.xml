@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">ЛофтДеньги</string>
-    <string name="hello_text">Привет!</string>
-    <string name="add_button_text">Добавить</string>
-    <string name="title_edit_text">Название</string>
-    <string name="price_edit_text">Цена</string>
+    <string name="app_name">LoftMoney</string>
+    <string name="hello_text">Hello!</string>
+    <string name="add_button_text">Add</string>
+    <string name="title_edit_text">Title</string>
+    <string name="price_edit_text">Price</string>
 </resources>

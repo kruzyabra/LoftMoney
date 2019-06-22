@@ -16,13 +16,21 @@
         android:paddingEnd="48dp">
 
         <EditText
+            android:id="@+id/title_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHint="@color/hint_color"
+            android:backgroundTint="@color/hint_color"
+            android:textColor="@color/edit_text_color"
             android:hint="@string/title_edit_text"/>
 
         <EditText
+            android:id="@+id/price_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHint="@color/hint_color"
+            android:backgroundTint="@color/hint_color"
+            android:textColor="@color/edit_text_color"
             android:inputType="number"
             android:layout_marginTop="18dp"
             android:hint="@string/price_edit_text"/>
@@ -30,10 +38,13 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="61dp"
+        android:background="@null"
+        android:textColor="@color/hint_color"
         android:text="@string/add_button_text"/>
 
 </LinearLayout>

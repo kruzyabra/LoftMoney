@@ -14,9 +14,6 @@ public class AddItemActivity extends AppCompatActivity {
     EditText priceEditText;
     Button addButton;
 
-    String title;
-    String price;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +23,7 @@ public class AddItemActivity extends AppCompatActivity {
         titleEditText = findViewById(R.id.title_input);
         priceEditText = findViewById(R.id.price_input);
 
-        titleEditText.addTextChangedListener(new TextWatcher() {
+        TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -39,33 +36,17 @@ public class AddItemActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                title = s.toString();
                 changeButtonTextColor();
             }
-        });
+        };
 
-        priceEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                price = s.toString();
-                changeButtonTextColor();
-            }
-        });
+        titleEditText.addTextChangedListener(textWatcher);
+        priceEditText.addTextChangedListener(textWatcher);
 
     }
 
     private void changeButtonTextColor() {
-        if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(price)) {
+        if (!TextUtils.isEmpty(titleEditText.getText()) && !TextUtils.isEmpty(priceEditText.getText())) {
             addButton.setTextColor(getResources().getColor(R.color.active_add_button_color));
         } else
         {

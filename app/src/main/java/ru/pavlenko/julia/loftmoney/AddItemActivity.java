@@ -1,10 +1,13 @@
 package ru.pavlenko.julia.loftmoney;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -42,6 +45,18 @@ public class AddItemActivity extends AppCompatActivity {
 
         titleEditText.addTextChangedListener(textWatcher);
         priceEditText.addTextChangedListener(textWatcher);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = titleEditText.getText().toString();
+                String price = priceEditText.getText().toString();
+
+                setResult(Activity.RESULT_OK, new Intent().putExtra("title", title)
+                    .putExtra("price", price));
+                finish();
+            }
+        });
 
     }
 

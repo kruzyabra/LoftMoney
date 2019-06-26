@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddItemActivity extends AppCompatActivity {
 
@@ -49,23 +50,40 @@ public class AddItemActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = titleEditText.getText().toString();
-                String price = priceEditText.getText().toString();
+                if (isTitleAndPriceEmpty()) {
+                    String title = titleEditText.getText().toString();
+                    String price = priceEditText.getText().toString();
 
-                setResult(Activity.RESULT_OK, new Intent().putExtra("title", title)
-                    .putExtra("price", price));
-                finish();
+                    setResult(Activity.RESULT_OK, new Intent().putExtra("title", title)
+                            .putExtra("price", price));
+                    finish();
+                } else
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            getResources().getText(R.string.empty_item_add_warning),
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
 
     }
 
     private void changeButtonTextColor() {
-        if (!TextUtils.isEmpty(titleEditText.getText()) && !TextUtils.isEmpty(priceEditText.getText())) {
+        if (isTitleAndPriceEmpty())
             addButton.setTextColor(getResources().getColor(R.color.active_add_button_color));
-        } else
+        else
         {
             addButton.setTextColor(getResources().getColor(R.color.hint_color));
+        }
+    }
+
+    private boolean isTitleAndPriceEmpty() {
+        if (!TextUtils.isEmpty(titleEditText.getText()) && !TextUtils.isEmpty(priceEditText.getText())) {
+            return true;
+        } else
+        {
+            return false;
         }
     }
 }

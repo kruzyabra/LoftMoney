@@ -6,4 +6,5 @@
     <string name="price_edit_text">Цена</string>
 
     <string name="price_template">%1$s ₽</string>
+    <string name="empty_item_add_warning">Заполните все поля!</string>
 </resources>

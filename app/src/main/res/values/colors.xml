@@ -8,4 +8,6 @@
     <color name="hint_color">#dbdbdb</color>
     <color name="edit_text_color">#3574fa</color>
     <color name="active_add_button_color">#7ed321</color>
+    <color name="item_title_text_color">#666664</color>
+    <color name="item_price_text_color">#4a90e2</color>
 </resources>

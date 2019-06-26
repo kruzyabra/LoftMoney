@@ -48,7 +48,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
 
         public void bindItem(final Item item) {
             mTitle.setText(item.getTitle());
-            mPrice.setText(item.getPrice());
+            mPrice.setText(mPrice.getContext().getResources().getString(R.string.price_template, item.getPrice()));
         }
     }
 }

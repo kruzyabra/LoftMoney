@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BudgetActivity">
+    tools:context=".BudgetActivity"
+    android:background="@drawable/budget_background">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/item_list"

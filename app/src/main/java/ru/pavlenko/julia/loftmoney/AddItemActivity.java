@@ -1,21 +1,22 @@
 package ru.pavlenko.julia.loftmoney;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddItemActivity extends AppCompatActivity {
 
     EditText titleEditText;
     EditText priceEditText;
     Button addButton;
-
-    String title;
-    String price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class AddItemActivity extends AppCompatActivity {
         titleEditText = findViewById(R.id.title_input);
         priceEditText = findViewById(R.id.price_input);
 
-        titleEditText.addTextChangedListener(new TextWatcher() {
+        TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -39,37 +40,50 @@ public class AddItemActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                title = s.toString();
                 changeButtonTextColor();
             }
-        });
+        };
 
-        priceEditText.addTextChangedListener(new TextWatcher() {
+        titleEditText.addTextChangedListener(textWatcher);
+        priceEditText.addTextChangedListener(textWatcher);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void onClick(View v) {
+                if (isTitleAndPriceEmpty()) {
+                    String title = titleEditText.getText().toString();
+                    String price = priceEditText.getText().toString();
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                price = s.toString();
-                changeButtonTextColor();
+                    setResult(Activity.RESULT_OK, new Intent().putExtra("title", title)
+                            .putExtra("price", price));
+                    finish();
+                } else
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            getResources().getText(R.string.empty_item_add_warning),
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
 
     }
 
     private void changeButtonTextColor() {
-        if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(price)) {
+        if (isTitleAndPriceEmpty())
             addButton.setTextColor(getResources().getColor(R.color.active_add_button_color));
-        } else
+        else
         {
             addButton.setTextColor(getResources().getColor(R.color.hint_color));
+        }
+    }
+
+    private boolean isTitleAndPriceEmpty() {
+        if (!TextUtils.isEmpty(titleEditText.getText()) && !TextUtils.isEmpty(priceEditText.getText())) {
+            return true;
+        } else
+        {
+            return false;
         }
     }
 }

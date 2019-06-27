@@ -4,4 +4,7 @@
     <string name="add_button_text">Add</string>
     <string name="title_edit_text">Title</string>
     <string name="price_edit_text">Price</string>
+
+    <string name="price_template">%1$s ₽</string>
+    <string name="empty_item_add_warning">Fill in all fields!</string>
 </resources>

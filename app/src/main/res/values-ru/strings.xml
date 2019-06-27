@@ -4,4 +4,7 @@
     <string name="add_button_text">Добавить</string>
     <string name="title_edit_text">Название</string>
     <string name="price_edit_text">Цена</string>
+
+    <string name="price_template">%1$s ₽</string>
+    <string name="empty_item_add_warning">Заполните все поля!</string>
 </resources>

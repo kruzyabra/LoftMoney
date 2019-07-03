@@ -21,7 +21,9 @@
         <activity
             android:name=".AddItemActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".BudgetActivity"></activity>
+        <activity
+            android:name=".BudgetActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>

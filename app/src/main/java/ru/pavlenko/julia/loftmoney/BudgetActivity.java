@@ -1,56 +1,56 @@
 package ru.pavlenko.julia.loftmoney;
 
-import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 public class BudgetActivity extends AppCompatActivity {
-    private final int REQUEST_CODE = 1001;
-
-    private ItemsAdapter itemsAdapter;
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget);
 
-        RecyclerView recyclerView = findViewById(R.id.item_list);
+        ViewPagerAdapter mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        itemsAdapter = new ItemsAdapter();
+        mTabLayout = findViewById(R.id.tab_layout);
+        mViewPager = findViewById(R.id.view_pager);
 
-        recyclerView.setAdapter(itemsAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+        mViewPager.setAdapter(mViewPagerAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
 
-        itemsAdapter.addItem(new Item("Молоко", 70));
+        mTabLayout.getTabAt(0).setText(R.string.outcome);
+        mTabLayout.getTabAt(1).setText(R.string.income);
 
-        FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BudgetActivity.this, AddItemActivity.class);
-                startActivityForResult(intent, REQUEST_CODE);
-            }
-        });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
+        @Override
+        public int getCount() {
+            return 2;
+        }
 
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK)
-        {
-            String title = data.getStringExtra("title");
-            int price = Integer.valueOf(data.getStringExtra("price"));
+        @Override
+        public Fragment getItem(int i) {
+            switch (i) {
+                case 0:
+                    return BudgetFragment.newInstance(FragmentType.outcome);
+                case 1:
+                    return BudgetFragment.newInstance(FragmentType.income);
+            }
+            return null;
+        }
 
-            Item item = new Item(title, price);
-            itemsAdapter.addItem(item);
+        public ViewPagerAdapter(FragmentManager fm) {
+            super(fm);
         }
     }
 }

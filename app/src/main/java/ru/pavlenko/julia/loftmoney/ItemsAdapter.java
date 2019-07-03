@@ -11,11 +11,20 @@ import java.util.List;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
     private List<Item> mItemList = new ArrayList<>();
+    private int mPriceColor;
+
+    public ItemsAdapter(int priceColor) {
+        this.mPriceColor = priceColor;
+    }
 
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemView = View.inflate(viewGroup.getContext(), R.layout.item_view, null);
+
+        TextView priceView = itemView.findViewById(R.id.item_price);
+        priceView.setTextColor(itemView.getResources().getColor(mPriceColor));
+
         return new ItemViewHolder(itemView);
     }
 

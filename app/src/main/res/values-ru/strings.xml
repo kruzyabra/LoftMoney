@@ -7,4 +7,8 @@
 
     <string name="price_template">%1$s ₽</string>
     <string name="empty_item_add_warning">Заполните все поля!</string>
+
+    <string name="outcome">Расходы</string>
+    <string name="income">Доходы</string>
+    <string name="label_badget_activity">Учет бюджета</string>
 </resources>

@@ -1,5 +1,6 @@
 package ru.pavlenko.julia.loftmoney;
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class BudgetActivity extends AppCompatActivity {
+    private TabLayout mTabLayout;
     private ViewPager mViewPager;
 
     @Override
@@ -18,9 +20,15 @@ public class BudgetActivity extends AppCompatActivity {
 
         ViewPagerAdapter mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
+        mTabLayout = findViewById(R.id.tab_layout);
         mViewPager = findViewById(R.id.view_pager);
 
         mViewPager.setAdapter(mViewPagerAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
+
+        mTabLayout.getTabAt(0).setText(R.string.outcome);
+        mTabLayout.getTabAt(1).setText(R.string.income);
 
     }
 
@@ -34,9 +42,9 @@ public class BudgetActivity extends AppCompatActivity {
         public Fragment getItem(int i) {
             switch (i) {
                 case 0:
-                    return BudgetFragment.newInstance();
+                    return BudgetFragment.newInstance(FragmentType.outcome);
                 case 1:
-                    return BudgetFragment.newInstance();
+                    return BudgetFragment.newInstance(FragmentType.income);
             }
             return null;
         }

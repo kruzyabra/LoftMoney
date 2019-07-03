@@ -8,6 +8,7 @@
     <string name="price_template">%1$s ₽</string>
     <string name="empty_item_add_warning">Fill in all fields!</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="outcome">Outcome</string>
+    <string name="income">Income</string>
+    <string name="label_badget_activity">Budget accounting</string>
 </resources>

@@ -18,14 +18,22 @@ import android.view.ViewGroup;
 public class BudgetFragment extends Fragment {
     private final int REQUEST_CODE = 1001;
 
+    private static final String PRICE_COLOR = "price_color";
+
     private ItemsAdapter mItemsAdapter;
 
     public BudgetFragment() {
         // Required empty public constructor
     }
 
-    public static BudgetFragment newInstance() {
+    public static BudgetFragment newInstance(FragmentType fragmentType) {
         BudgetFragment fragment = new BudgetFragment();
+
+        Bundle args = new Bundle();
+        args.putInt(PRICE_COLOR, fragmentType.getTextColor());
+
+        fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -41,7 +49,7 @@ public class BudgetFragment extends Fragment {
 
         RecyclerView recyclerView = budgetFragment.findViewById(R.id.item_list);
 
-        mItemsAdapter = new ItemsAdapter();
+        mItemsAdapter = new ItemsAdapter(getArguments().getInt(PRICE_COLOR));
 
         recyclerView.setAdapter(mItemsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -1,11 +1,11 @@
 package ru.pavlenko.julia.loftmoney;
 
 public class Item {
-    private String title;
+    private String name;
     private String price;
 
-    public Item(String title, int price) {
-        this.title = title;
+    public Item(String name, int price) {
+        this.name = name;
         this.price = String.valueOf(price);
     }
 
@@ -18,12 +18,12 @@ public class Item {
         this.price = String.valueOf(price);
     }
 
-    public String getTitle() {
+    public String getName() {
 
-        return title;
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 }

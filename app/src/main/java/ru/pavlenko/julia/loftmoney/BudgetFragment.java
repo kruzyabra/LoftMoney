@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -118,6 +120,17 @@ public class BudgetFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
                 List<Item> items = response.body();
+
+                for (Item item : items) {
+                    item.setCreateAtDate();
+                }
+
+                Collections.sort(items, new Comparator<Item>() {
+                    @Override
+                    public int compare(Item o1, Item o2) {
+                        return o1.getCreateAtDate().compareTo(o2.getCreateAtDate());
+                    }
+                });
 
                 for (Item item : items) {
                     mItemsAdapter.addItem(item);

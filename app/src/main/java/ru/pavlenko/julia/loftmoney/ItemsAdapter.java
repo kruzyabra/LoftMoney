@@ -39,7 +39,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
     }
 
     public void addItem(Item item) {
-        mItemList.add(0, item);
+        mItemList.add(item);
         notifyDataSetChanged();
     }
 

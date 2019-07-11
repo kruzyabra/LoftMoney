@@ -39,7 +39,12 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
     }
 
     public void addItem(Item item) {
-        mItemList.add(0, item);
+        mItemList.add(item);
+        notifyDataSetChanged();
+    }
+
+    public void clearItemList() {
+        mItemList.clear();
         notifyDataSetChanged();
     }
 
@@ -56,7 +61,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         }
 
         public void bindItem(final Item item) {
-            mTitle.setText(item.getTitle());
+            mTitle.setText(item.getName());
             mPrice.setText(mPrice.getContext().getResources().getString(R.string.price_template, item.getPrice()));
         }
     }

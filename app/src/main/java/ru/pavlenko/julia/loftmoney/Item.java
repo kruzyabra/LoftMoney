@@ -1,12 +1,26 @@
 package ru.pavlenko.julia.loftmoney;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class Item {
-    private String title;
+    private String name;
     private String price;
 
-    public Item(String title, int price) {
-        this.title = title;
+    @SerializedName("created_at")
+    private String createdAt;
+
+    private Date createAtDate;
+
+    public Item(String name, int price, String createdAt) {
+        this.name = name;
         this.price = String.valueOf(price);
+        this.createdAt = createdAt;
+        setCreateAtDate();
     }
 
     public String getPrice() {
@@ -18,12 +32,30 @@ public class Item {
         this.price = String.valueOf(price);
     }
 
-    public String getTitle() {
+    public String getName() {
 
-        return title;
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public Date getCreateAtDate() {
+        return createAtDate;
+    }
+
+    public void setCreateAtDate() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        try {
+            this.createAtDate = simpleDateFormat.parse(this.createdAt);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

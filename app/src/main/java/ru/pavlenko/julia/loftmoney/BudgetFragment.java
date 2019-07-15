@@ -26,7 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BudgetFragment extends Fragment {
-    private final int REQUEST_CODE = 1001;
+    public static final int REQUEST_CODE = 1001;
 
     private static final String PRICE_COLOR = "price_color";
     private static final String PRICE_TYPE = "price_type";
@@ -73,14 +73,6 @@ public class BudgetFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
-        FloatingActionButton floatingActionButton = budgetFragment.findViewById(R.id.floatingActionButton);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddItemActivity.class);
-                startActivityForResult(intent, REQUEST_CODE);
-            }
-        });
         return budgetFragment;
     }
 

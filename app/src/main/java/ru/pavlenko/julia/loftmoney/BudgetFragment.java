@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +33,7 @@ public class BudgetFragment extends Fragment {
     private static final String PRICE_TYPE = "price_type";
 
     private ItemsAdapter mItemsAdapter;
+    private SwipeRefreshLayout mRefresh;
 
     private Api mApi;
 
@@ -72,6 +74,17 @@ public class BudgetFragment extends Fragment {
         recyclerView.setAdapter(mItemsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+
+        mRefresh = budgetFragment.findViewById(R.id.refresh);
+
+        mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mItemsAdapter.clearItemList();
+                getItems();
+                mRefresh.setRefreshing(false);
+            }
+        });
 
         return budgetFragment;
     }

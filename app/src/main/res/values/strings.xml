@@ -10,5 +10,5 @@
 
     <string name="outcome">Outcome</string>
     <string name="income">Income</string>
-    <string name="label_badget_activity">Budget accounting</string>
+    <string name="budget_activity_title">Budget accounting</string>
 </resources>

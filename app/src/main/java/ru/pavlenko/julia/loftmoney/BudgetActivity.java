@@ -1,5 +1,7 @@
 package ru.pavlenko.julia.loftmoney;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 public class BudgetActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
@@ -28,6 +31,20 @@ public class BudgetActivity extends AppCompatActivity {
 
         mTabLayout.getTabAt(0).setText(R.string.outcome);
         mTabLayout.getTabAt(1).setText(R.string.income);
+
+        FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                for (Fragment fragment : fragmentManager.getFragments()) {
+                    if (fragment.getUserVisibleHint()) {
+                        Intent intent = new Intent(BudgetActivity.this, AddItemActivity.class);
+                        fragment.startActivityForResult(intent, BudgetFragment.REQUEST_CODE);
+                    }
+                }
+            }
+        });
 
     }
 

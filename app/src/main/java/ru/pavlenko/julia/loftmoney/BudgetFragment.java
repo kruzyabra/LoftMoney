@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,12 +27,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BudgetFragment extends Fragment {
-    private final int REQUEST_CODE = 1001;
+    public static final int REQUEST_CODE = 1001;
 
     private static final String PRICE_COLOR = "price_color";
     private static final String PRICE_TYPE = "price_type";
 
     private ItemsAdapter mItemsAdapter;
+    private SwipeRefreshLayout mRefresh;
 
     private Api mApi;
 
@@ -73,14 +75,17 @@ public class BudgetFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
-        FloatingActionButton floatingActionButton = budgetFragment.findViewById(R.id.floatingActionButton);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        mRefresh = budgetFragment.findViewById(R.id.refresh);
+
+        mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddItemActivity.class);
-                startActivityForResult(intent, REQUEST_CODE);
+            public void onRefresh() {
+                mItemsAdapter.clearItemList();
+                getItems();
+                mRefresh.setRefreshing(false);
             }
         });
+
         return budgetFragment;
     }
 

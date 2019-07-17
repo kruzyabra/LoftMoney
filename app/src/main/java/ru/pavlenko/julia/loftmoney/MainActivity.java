@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,21 +15,25 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String AUTH_TOKEN = "authToken";
 
-    Button helloButton;
+    Button authButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        helloButton = findViewById(R.id.hello_button);
+        if (!TextUtils.isEmpty(getToken())) {
+            startBudgetActivity();
+        }
 
-        helloButton.setOnClickListener(new View.OnClickListener() {
+        authButton = findViewById(R.id.auth_button);
+
+        authButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, BudgetActivity.class);
-                startActivity(intent);
+                startBudgetActivity();
             }
         });
 
@@ -45,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                editor.putString("authToken", response.body().getAuthToken());
+                editor.putString(AUTH_TOKEN, response.body().getAuthToken());
                 editor.commit();
             }
 
@@ -54,6 +59,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void startBudgetActivity() {
+        Intent intent = (new Intent(MainActivity.this, BudgetActivity.class)).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        overridePendingTransition(R.anim.from_right, R.anim.to_left);
+        finish();
+    }
+
+    private String getToken() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        return sharedPreferences.getString(AUTH_TOKEN, "");
     }
 }
 

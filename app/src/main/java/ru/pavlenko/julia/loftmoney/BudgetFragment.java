@@ -97,7 +97,7 @@ public class BudgetFragment extends Fragment {
         {
             String title = data.getStringExtra("title");
             int price = Integer.valueOf(data.getStringExtra("price"));
-            String authToken = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("authToken", "");
+            String authToken = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(MainActivity.AUTH_TOKEN, "");
 
             Call<Status> call = mApi.add(new AddItemRequest(price, title, getArguments().getString(PRICE_TYPE)), authToken);
 
@@ -117,7 +117,7 @@ public class BudgetFragment extends Fragment {
     }
 
     private void getItems() {
-        String authToken = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("authToken", "");
+        String authToken = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(MainActivity.AUTH_TOKEN, "");
 
         Call<List<Item>> call = mApi.getItems(getArguments().getString(PRICE_TYPE), authToken);
 

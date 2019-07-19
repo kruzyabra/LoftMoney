@@ -102,8 +102,7 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK)
-        {
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             String title = data.getStringExtra("title");
             int price = Integer.valueOf(data.getStringExtra("price"));
             String authToken = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(MainActivity.AUTH_TOKEN, "");

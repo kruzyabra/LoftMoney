@@ -81,17 +81,7 @@ public class BudgetActivity extends AppCompatActivity {
     public void onSupportActionModeStarted(@NonNull ActionMode mode) {
         super.onSupportActionModeStarted(mode);
 
-        // ++ Replace with setActionModeColors()
-        int backgroundColor = getResources().getColor(R.color.colorDarkBlueGray);
-        int normalTextColor = getResources().getColor(R.color.colorWhite);
-        int selectedTextColor = getResources().getColor(R.color.tabs_with_action_mode_on);
-
-        mToolbar.setBackgroundColor(backgroundColor);
-        mTabLayout.setBackgroundColor(backgroundColor);
-        mTabLayout.setTabTextColors(selectedTextColor, normalTextColor);
-        // --
-
-        //setActionModeColors(ActionModeColors.actionModeOn);
+        setActionModeColors(ActionModeColors.actionModeOn);
         mFloatingActionButton.hide();
     }
 
@@ -99,23 +89,13 @@ public class BudgetActivity extends AppCompatActivity {
     public void onSupportActionModeFinished(@NonNull ActionMode mode) {
         super.onSupportActionModeFinished(mode);
 
-        // ++ Replace with setActionModeColors()
-        int backgroundColor = getResources().getColor(R.color.colorPrimary);
-        int normalTextColor = getResources().getColor(R.color.colorWhite);
-        int selectedTextColor = getResources().getColor(R.color.tabs_unselected_text_color);
-
-        mToolbar.setBackgroundColor(backgroundColor);
-        mTabLayout.setBackgroundColor(backgroundColor);
-        mTabLayout.setTabTextColors(normalTextColor, selectedTextColor);
-        // --
-
-        //setActionModeColors(ActionModeColors.actionModeOff);
+        setActionModeColors(ActionModeColors.actionModeOff);
         mFloatingActionButton.show();
     }
 
     private void setActionModeColors(ActionModeColors actionModeColors) {
-        mToolbar.setBackgroundColor(actionModeColors.getBackgroundColor());
-        mTabLayout.setBackgroundColor(actionModeColors.getBackgroundColor());
+        mToolbar.setBackgroundColor(getResources().getColor(actionModeColors.getBackgroundColor()));
+        mTabLayout.setBackgroundColor(getResources().getColor(actionModeColors.getBackgroundColor()));
         mTabLayout.setTabTextColors(actionModeColors.getTabsNormalColor(), actionModeColors.getTabsSelectedColor());
     }
 

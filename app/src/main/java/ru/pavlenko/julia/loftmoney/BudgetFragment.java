@@ -89,7 +89,6 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
         mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mItemsAdapter.clearItemList();
                 getItems();
                 mRefresh.setRefreshing(false);
             }
@@ -112,7 +111,6 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
             call.enqueue(new Callback<Status>() {
                 @Override
                 public void onResponse(Call<Status> call, Response<Status> response) {
-                    mItemsAdapter.clearItemList();
                     getItems();
                 }
 
@@ -132,6 +130,8 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
         call.enqueue(new Callback<List<Item>>() {
             @Override
             public void onResponse(Call<List<Item>> call, Response<List<Item>> response) {
+                mItemsAdapter.clearItemList();
+
                 List<Item> items = response.body();
 
                 for (Item item : items) {
@@ -251,8 +251,6 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
         for (int i = 0; i < selectedItems.size(); i++) {
             removeItem(selectedItems.get(i));
         }
-
-
     }
 
     private void removeItem(int id) {
@@ -263,9 +261,8 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
         call.enqueue(new Callback<Status>() {
             @Override
             public void onResponse(Call<Status> call, Response<Status> response) {
-                mItemsAdapter.clearSelections();
-                mItemsAdapter.clearItemList();
                 getItems();
+                mItemsAdapter.clearSelections();
             }
 
             @Override

@@ -11,4 +11,6 @@
     <string name="outcome">Расходы</string>
     <string name="income">Доходы</string>
     <string name="budget_activity_title">Учет бюджета</string>
+    <string name="menu_item_remove">Удалить</string>
+    <string name="action_mode_title">Выделено:</string>
 </resources>

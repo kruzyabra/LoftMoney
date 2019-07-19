@@ -13,6 +13,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionModeStyle">@style/ActionModeStyle</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionModeCloseButton</item>
     </style>
 
     <style name="AddActivityTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -32,6 +34,30 @@
     <style name="AuthButtonStyle">
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:backgroundTint">@color/colorWhite</item>
+    </style>
+
+    <style name="ActionModeStyle" parent="Widget.AppCompat.ActionMode">
+        <item name="background">@color/colorDarkBlueGray</item>
+        <item name="titleTextStyle">@style/ActionModeTextStyle</item>
+    </style>
+
+    <style name="ActionModeTextStyle">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    
+    <style name="ActionModeCloseButton" parent="Widget.AppCompat.Light.ActionButton.CloseMode">
+        <item name="android:tint">@color/colorWhite</item>
+    </style>
+
+    <style name="ActionModeOnBackgroundColor">
+        <item name="android:background">@color/colorDarkBlueGray</item>
+    </style>
+
+    <style name="ActionModeOffBackgroundColor">
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 
 </resources>

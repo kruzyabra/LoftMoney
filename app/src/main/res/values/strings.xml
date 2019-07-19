@@ -12,4 +12,5 @@
     <string name="income">Income</string>
     <string name="budget_activity_title">Budget accounting</string>
     <string name="menu_item_remove">Remove</string>
+    <string name="action_mode_title">Selected:</string>
 </resources>

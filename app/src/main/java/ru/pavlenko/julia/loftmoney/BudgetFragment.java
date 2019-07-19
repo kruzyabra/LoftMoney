@@ -178,6 +178,7 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
     public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
         mActionMode = actionMode;
         mActionMode.getMenuInflater().inflate(R.menu.budget_menu, menu);
+        mActionMode.setTitle(R.string.action_mode_title);
         return true;
     }
 

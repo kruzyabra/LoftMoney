@@ -1,6 +1,7 @@
 package ru.pavlenko.julia.loftmoney;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,11 +10,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.ActionMode;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 public class BudgetActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
+    private Toolbar mToolbar;
+    private FloatingActionButton mFloatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +29,7 @@ public class BudgetActivity extends AppCompatActivity {
 
         mTabLayout = findViewById(R.id.tab_layout);
         mViewPager = findViewById(R.id.view_pager);
+        mToolbar   = findViewById(R.id.toolbar);
 
         mViewPager.setAdapter(mViewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
@@ -32,8 +38,8 @@ public class BudgetActivity extends AppCompatActivity {
         mTabLayout.getTabAt(0).setText(R.string.outcome);
         mTabLayout.getTabAt(1).setText(R.string.income);
 
-        FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        mFloatingActionButton = findViewById(R.id.floatingActionButton);
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
@@ -70,4 +76,47 @@ public class BudgetActivity extends AppCompatActivity {
             super(fm);
         }
     }
+
+    @Override
+    public void onSupportActionModeStarted(@NonNull ActionMode mode) {
+        super.onSupportActionModeStarted(mode);
+
+        // ++ Replace with setActionModeColors()
+        int backgroundColor = getResources().getColor(R.color.colorDarkBlueGray);
+        int normalTextColor = getResources().getColor(R.color.colorWhite);
+        int selectedTextColor = getResources().getColor(R.color.tabs_with_action_mode_on);
+
+        mToolbar.setBackgroundColor(backgroundColor);
+        mTabLayout.setBackgroundColor(backgroundColor);
+        mTabLayout.setTabTextColors(selectedTextColor, normalTextColor);
+        // --
+
+        //setActionModeColors(ActionModeColors.actionModeOn);
+        mFloatingActionButton.hide();
+    }
+
+    @Override
+    public void onSupportActionModeFinished(@NonNull ActionMode mode) {
+        super.onSupportActionModeFinished(mode);
+
+        // ++ Replace with setActionModeColors()
+        int backgroundColor = getResources().getColor(R.color.colorPrimary);
+        int normalTextColor = getResources().getColor(R.color.colorWhite);
+        int selectedTextColor = getResources().getColor(R.color.tabs_unselected_text_color);
+
+        mToolbar.setBackgroundColor(backgroundColor);
+        mTabLayout.setBackgroundColor(backgroundColor);
+        mTabLayout.setTabTextColors(normalTextColor, selectedTextColor);
+        // --
+
+        //setActionModeColors(ActionModeColors.actionModeOff);
+        mFloatingActionButton.show();
+    }
+
+    private void setActionModeColors(ActionModeColors actionModeColors) {
+        mToolbar.setBackgroundColor(actionModeColors.getBackgroundColor());
+        mTabLayout.setBackgroundColor(actionModeColors.getBackgroundColor());
+        mTabLayout.setTabTextColors(actionModeColors.getTabsNormalColor(), actionModeColors.getTabsSelectedColor());
+    }
+
 }

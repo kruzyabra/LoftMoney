@@ -6,6 +6,7 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorGray">#BEBEBB</color>
     <color name="colorLightGray">#efefef</color>
+    <color name="colorDarkBlueGray">#333f59</color>
 
     <color name="hint_color">#dbdbdb</color>
     <color name="edit_text_color">#3574fa</color>
@@ -14,4 +15,5 @@
     <color name="item_price_text_color_outcome">#4a90e2</color>
     <color name="item_price_text_color_income">#7ed321</color>
     <color name="tabs_unselected_text_color">#8baaef</color>
+    <color name="tabs_with_action_mode_on">#b38baaef</color>
 </resources>

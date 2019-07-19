@@ -168,19 +168,33 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
     @Override
     public void onItemLongClick(int position) {
         switchItem(position);
-        ((AppCompatActivity) getActivity()).startSupportActionMode(this);
+        mItemsAdapter.notifyDataSetChanged();
+        if (mActionMode == null) {
+            ((AppCompatActivity) getActivity()).startSupportActionMode(this);
+        }
     }
 
     private void switchItem(int position) {
         mItemsAdapter.switchItem(position);
         mItemsAdapter.notifyDataSetChanged();
+
+        if (mActionMode != null) {
+            setActionModeTitle();
+        }
+    }
+
+    private void setActionModeTitle() {
+        String title = getResources().getString(R.string.action_mode_title);
+        mActionMode.setTitle(title + " " + mItemsAdapter.getNumberOfSelectedItems());
     }
 
     @Override
     public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
         mActionMode = actionMode;
         mActionMode.getMenuInflater().inflate(R.menu.budget_menu, menu);
-        mActionMode.setTitle(R.string.action_mode_title);
+
+        setActionModeTitle();
+
         return true;
     }
 
@@ -201,8 +215,9 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
 
     @Override
     public void onDestroyActionMode(ActionMode actionMode) {
-        mActionMode = null;
         mItemsAdapter.clearSelections();
+        mItemsAdapter.notifyDataSetChanged();
+        mActionMode = null;
     }
 
     private void showDialog() {

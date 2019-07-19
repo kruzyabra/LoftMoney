@@ -83,6 +83,18 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         return selectedItems;
     }
 
+    public int getNumberOfSelectedItems() {
+        int number = 0;
+
+        for (int i = 0; i < mItemList.size(); i++) {
+            if (mSelectedItems.get(i)) {
+                number ++;
+            }
+        }
+
+        return number;
+    }
+
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTitle;

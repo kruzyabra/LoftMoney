@@ -10,10 +10,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -26,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BudgetFragment extends Fragment {
+public class BudgetFragment extends Fragment implements ItemAdapterListener, ActionMode.Callback{
     public static final int REQUEST_CODE = 1001;
 
     private static final String PRICE_COLOR = "price_color";
@@ -36,6 +40,8 @@ public class BudgetFragment extends Fragment {
     private SwipeRefreshLayout mRefresh;
 
     private Api mApi;
+
+    private ActionMode mActionMode;
 
     public BudgetFragment() {
         // Required empty public constructor
@@ -70,6 +76,7 @@ public class BudgetFragment extends Fragment {
         RecyclerView recyclerView = budgetFragment.findViewById(R.id.item_list);
 
         mItemsAdapter = new ItemsAdapter(getArguments().getInt(PRICE_COLOR));
+        mItemsAdapter.setListener(this);
 
         recyclerView.setAdapter(mItemsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -147,5 +154,45 @@ public class BudgetFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        if (mItemsAdapter.isItemSelected(position)) {
+            switchItem(position);
+        }
+    }
+
+    @Override
+    public void onItemLongClick(int position) {
+        switchItem(position);
+        ((AppCompatActivity) getActivity()).startSupportActionMode(this);
+    }
+
+    private void switchItem(int position) {
+        mItemsAdapter.switchItem(position);
+        mItemsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+        mActionMode = actionMode;
+        mActionMode.getMenuInflater().inflate(R.menu.budget_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+        return true;
+    }
+
+    @Override
+    public void onDestroyActionMode(ActionMode actionMode) {
+        mActionMode = null;
     }
 }

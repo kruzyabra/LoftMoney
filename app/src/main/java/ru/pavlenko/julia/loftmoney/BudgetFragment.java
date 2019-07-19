@@ -162,6 +162,9 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
         if (mItemsAdapter.isItemSelected(position)) {
             switchItem(position);
         }
+        if (mItemsAdapter.getNumberOfSelectedItems() == 0) {
+            mActionMode.finish();
+        }
     }
 
     @Override
@@ -170,6 +173,9 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
         mItemsAdapter.notifyDataSetChanged();
         if (mActionMode == null) {
             ((AppCompatActivity) getActivity()).startSupportActionMode(this);
+        }
+        if (mItemsAdapter.getNumberOfSelectedItems() == 0) {
+            mActionMode.finish();
         }
     }
 
@@ -244,8 +250,9 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
 
         for (int i = 0; i < selectedItems.size(); i++) {
             removeItem(selectedItems.get(i));
-
         }
+
+
     }
 
     private void removeItem(int id) {
@@ -256,9 +263,9 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
         call.enqueue(new Callback<Status>() {
             @Override
             public void onResponse(Call<Status> call, Response<Status> response) {
+                mItemsAdapter.clearSelections();
                 mItemsAdapter.clearItemList();
                 getItems();
-                mItemsAdapter.clearSelections();
             }
 
             @Override

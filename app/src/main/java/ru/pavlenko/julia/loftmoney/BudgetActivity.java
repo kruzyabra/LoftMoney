@@ -96,7 +96,9 @@ public class BudgetActivity extends AppCompatActivity {
     private void setActionModeColors(ActionModeColors actionModeColors) {
         mToolbar.setBackgroundColor(getResources().getColor(actionModeColors.getBackgroundColor()));
         mTabLayout.setBackgroundColor(getResources().getColor(actionModeColors.getBackgroundColor()));
-        mTabLayout.setTabTextColors(actionModeColors.getTabsNormalColor(), actionModeColors.getTabsSelectedColor());
+        mTabLayout.setTabTextColors(
+                getResources().getColor(actionModeColors.getTabsNormalColor()),
+                getResources().getColor(actionModeColors.getTabsSelectedColor()));
     }
 
 }

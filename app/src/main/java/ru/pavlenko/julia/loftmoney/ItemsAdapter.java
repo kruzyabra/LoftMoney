@@ -67,6 +67,22 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         notifyDataSetChanged();
     }
 
+    public void clearSelections() {
+        mSelectedItems.clear();
+    }
+
+    public List<Integer> getSelectedItems() {
+        List<Integer> selectedItems = new ArrayList<>();
+
+        for (int i = 0; i < mItemList.size(); i++) {
+            if (mSelectedItems.get(i)) {
+                selectedItems.add(mItemList.get(i).getId());
+            }
+        }
+
+        return selectedItems;
+    }
+
     static class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTitle;

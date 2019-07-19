@@ -1,6 +1,8 @@
 package ru.pavlenko.julia.loftmoney;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -189,11 +191,66 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
 
     @Override
     public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
-        return true;
+        switch (menuItem.getItemId()) {
+            case R.id.remove:
+                showDialog();
+                return true;
+        }
+        return false;
     }
 
     @Override
     public void onDestroyActionMode(ActionMode actionMode) {
         mActionMode = null;
+        mItemsAdapter.clearSelections();
+    }
+
+    private void showDialog() {
+        new AlertDialog.Builder(getContext())
+                .setTitle(R.string.budget_activity_title)
+                .setMessage(R.string.remove_message)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        removeItems();
+                        mActionMode.finish();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .show();
+    }
+
+    private void removeItems() {
+        List<Integer> selectedItems = mItemsAdapter.getSelectedItems();
+
+        for (int i = 0; i < selectedItems.size(); i++) {
+            removeItem(selectedItems.get(i));
+
+        }
+    }
+
+    private void removeItem(int id) {
+        String authToken = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString(MainActivity.AUTH_TOKEN, "");
+
+        Call<Status> call = mApi.remove(id, authToken);
+
+        call.enqueue(new Callback<Status>() {
+            @Override
+            public void onResponse(Call<Status> call, Response<Status> response) {
+                mItemsAdapter.clearItemList();
+                getItems();
+                mItemsAdapter.clearSelections();
+            }
+
+            @Override
+            public void onFailure(Call<Status> call, Throwable t) {
+
+            }
+        });
     }
 }

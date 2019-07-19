@@ -10,16 +10,18 @@ import java.util.Locale;
 public class Item {
     private String name;
     private String price;
+    private int id;
 
     @SerializedName("created_at")
     private String createdAt;
 
     private Date createAtDate;
 
-    public Item(String name, int price, String createdAt) {
+    public Item(String name, int price, String createdAt, int id) {
         this.name = name;
         this.price = String.valueOf(price);
         this.createdAt = createdAt;
+        this.id = id;
         setCreateAtDate();
     }
 
@@ -57,5 +59,9 @@ public class Item {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getId() {
+        return id;
     }
 }

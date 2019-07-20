@@ -31,12 +31,15 @@ public class BudgetActivity extends AppCompatActivity {
         mViewPager = findViewById(R.id.view_pager);
         mToolbar   = findViewById(R.id.toolbar);
 
+        setSupportActionBar(mToolbar);
+
         mViewPager.setAdapter(mViewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
 
         mTabLayout.getTabAt(0).setText(R.string.outcome);
         mTabLayout.getTabAt(1).setText(R.string.income);
+        mTabLayout.getTabAt(2).setText(R.string.balance);
 
         mFloatingActionButton = findViewById(R.id.floatingActionButton);
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +61,7 @@ public class BudgetActivity extends AppCompatActivity {
     private class ViewPagerAdapter extends FragmentPagerAdapter {
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
@@ -68,6 +71,8 @@ public class BudgetActivity extends AppCompatActivity {
                     return BudgetFragment.newInstance(FragmentType.expense);
                 case 1:
                     return BudgetFragment.newInstance(FragmentType.income);
+                case 2:
+                    return BalanceFragment.newInstance();
             }
             return null;
         }

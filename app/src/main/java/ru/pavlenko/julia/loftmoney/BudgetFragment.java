@@ -7,10 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
@@ -22,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -66,6 +62,11 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
         super.onCreate(savedInstanceState);
 
         mApi = ((LoftApp) getActivity().getApplication()).getApi();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         getItems();
     }

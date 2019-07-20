@@ -13,4 +13,9 @@
     <string name="budget_activity_title">Учет бюджета</string>
     <string name="menu_item_remove">Удалить</string>
     <string name="action_mode_title">Выделено:</string>
+    <string name="remove_message">Удалить выбранные элементы?</string>
+    <string name="balance">Баланс</string>
+    <string name="available_finance_price">%1$s ₽</string>
+    <string name="total_expense_price">%1$s ₽</string>
+    <string name="total_income_price">%1$s ₽</string>
 </resources>

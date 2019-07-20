@@ -16,6 +16,9 @@ public interface Api {
     @GET("items")
     Call<List<Item>> getItems(@Query("type") String type, @Query("auth-token") String authToken);
 
+    @GET("balance")
+    Call<BalanceResponse> getBalance(@Query("auth-token") String authToken);
+
     @POST("items/add")
     Call<Status> add(@Body AddItemRequest request, @Query("auth-token") String authToken);
 

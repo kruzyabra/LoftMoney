@@ -14,7 +14,7 @@ import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class BudgetActivity extends AppCompatActivity {
+public class BudgetActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener{
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private Toolbar mToolbar;
@@ -31,12 +31,16 @@ public class BudgetActivity extends AppCompatActivity {
         mViewPager = findViewById(R.id.view_pager);
         mToolbar   = findViewById(R.id.toolbar);
 
+        setSupportActionBar(mToolbar);
+
         mViewPager.setAdapter(mViewPagerAdapter);
+        mViewPager.addOnPageChangeListener(this);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
 
         mTabLayout.getTabAt(0).setText(R.string.outcome);
         mTabLayout.getTabAt(1).setText(R.string.income);
+        mTabLayout.getTabAt(2).setText(R.string.balance);
 
         mFloatingActionButton = findViewById(R.id.floatingActionButton);
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +62,7 @@ public class BudgetActivity extends AppCompatActivity {
     private class ViewPagerAdapter extends FragmentPagerAdapter {
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
@@ -68,6 +72,8 @@ public class BudgetActivity extends AppCompatActivity {
                     return BudgetFragment.newInstance(FragmentType.expense);
                 case 1:
                     return BudgetFragment.newInstance(FragmentType.income);
+                case 2:
+                    return BalanceFragment.newInstance();
             }
             return null;
         }
@@ -101,4 +107,23 @@ public class BudgetActivity extends AppCompatActivity {
                 getResources().getColor(actionModeColors.getTabsSelectedColor()));
     }
 
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+        if (i == 2) {
+            mFloatingActionButton.hide();
+        } else
+        {
+            mFloatingActionButton.show();
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
+    }
 }

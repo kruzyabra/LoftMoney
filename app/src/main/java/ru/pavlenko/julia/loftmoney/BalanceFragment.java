@@ -5,14 +5,11 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +23,8 @@ public class BalanceFragment extends Fragment {
     private TextView mAvailableFinanceTextView;
     private TextView mExpenseTextView;
     private TextView mIncomeTextView;
+
+    private SwipeRefreshLayout mRefreshLayout;
 
     @Override
     public void onStart() {
@@ -44,13 +43,23 @@ public class BalanceFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View balanceFragment = inflater.inflate(R.layout.balance_fragment, container, false);
+        View balanceFragment = inflater.inflate(R.layout.fragment_balance, container, false);
 
         mAvailableFinanceTextView = balanceFragment.findViewById(R.id.available_finance);
         mExpenseTextView = balanceFragment.findViewById(R.id.expense_balance);
         mIncomeTextView = balanceFragment.findViewById(R.id.income_balance);
 
         mDiagramView = balanceFragment.findViewById(R.id.diagram_view);
+
+        mRefreshLayout = balanceFragment.findViewById(R.id.refresh_balance);
+
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getBalance();
+                mRefreshLayout.setRefreshing(false);
+            }
+        });
 
         return balanceFragment;
     }

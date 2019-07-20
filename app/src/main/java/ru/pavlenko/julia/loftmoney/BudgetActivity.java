@@ -14,7 +14,7 @@ import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class BudgetActivity extends AppCompatActivity {
+public class BudgetActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener{
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private Toolbar mToolbar;
@@ -34,6 +34,7 @@ public class BudgetActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
 
         mViewPager.setAdapter(mViewPagerAdapter);
+        mViewPager.addOnPageChangeListener(this);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
 
@@ -106,4 +107,23 @@ public class BudgetActivity extends AppCompatActivity {
                 getResources().getColor(actionModeColors.getTabsSelectedColor()));
     }
 
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+        if (i == 2) {
+            mFloatingActionButton.hide();
+        } else
+        {
+            mFloatingActionButton.show();
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
+    }
 }

@@ -164,7 +164,8 @@ public class BudgetFragment extends Fragment implements ItemAdapterListener, Act
             switchItem(position);
         }
         if (mItemsAdapter.getNumberOfSelectedItems() == 0) {
-            mActionMode.finish();
+            if (mActionMode != null)
+                mActionMode.finish();
         }
     }
 

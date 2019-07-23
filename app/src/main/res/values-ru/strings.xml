@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">ЛофтДеньги</string>
     <string name="auth_text">Войти</string>
     <string name="add_button_text">Добавить</string>
     <string name="title_edit_text">Название</string>
@@ -18,4 +17,5 @@
     <string name="available_finance_price">%1$s ₽</string>
     <string name="total_expense_price">%1$s ₽</string>
     <string name="total_income_price">%1$s ₽</string>
+    <string name="main_title">ЛофтДеньги</string>
 </resources>
